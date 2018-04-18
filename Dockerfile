@@ -1,4 +1,6 @@
 FROM python:3.5
+MAINTAINER Gordon Yeu <kcyeu@mikuru.tw>
+
 ENV PYTHONUNBUFFERED 1
 
 RUN apt-get update && \
