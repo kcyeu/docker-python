@@ -1,4 +1,4 @@
-FROM python:3.5
+FROM python:3.6-slim-jessie
 MAINTAINER Gordon Yeu <kcyeu@mikuru.tw>
 
 ENV PYTHONUNBUFFERED 1
