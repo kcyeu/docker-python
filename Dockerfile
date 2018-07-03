@@ -3,7 +3,6 @@ MAINTAINER Gordon Yeu <kcyeu@mikuru.tw>
 
 ENV PYTHONUNBUFFERED 1
 
-RUN mkdir -p /GEOIP
 ADD /GeoIP/ /GeoIP/
 
 # Get dependencies via apt
