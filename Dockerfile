@@ -1,4 +1,4 @@
-FROM python:3.7-slim-stretch
+FROM python:3.7-alpine
 MAINTAINER Gordon Yeu <kcyeu@mikuru.tw>
 
 ENV PYTHONUNBUFFERED 1
@@ -8,8 +8,6 @@ ADD /GeoIP/ /GeoIP/
 # Get dependencies via apt
 RUN apt update && \
     apt install -y \
-        netcat \
-        vim-tiny \
         libcurl3 && \
     apt autoremove -y && \
     rm -rf /var/lib/apt/lists/*
