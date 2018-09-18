@@ -11,7 +11,7 @@ RUN apt update && \
         netcat \
         vim-tiny \
         libcurl3 && \
-	apt autoremove -y \
+    apt autoremove -y && \
     rm -rf /var/lib/apt/lists/*
 
 # Fetch GeoIP2 MMDB
