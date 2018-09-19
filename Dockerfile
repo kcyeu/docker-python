@@ -3,7 +3,14 @@ MAINTAINER Gordon Yeu <kcyeu@mikuru.tw>
 
 ENV PYTHONUNBUFFERED 1
 
-ADD /GeoIP/ /GeoIP/
+ENV GEOIP_CONF_DIR        /usr/etc
+ENV GEOIP_CONF_FILE       ${GEOIP_CONF_DIR}/GeoIP.conf
+ENV GEOIP_DB_DIR          /usr/share/GeoIP
+
+RUN mkdir -p ${GEOIP_CONF_DIR} ${GEOIP_DB_DIR}
+COPY ./GeoIP.conf  /usr/etc/GeoIP.conf
+COPY ./update.sh   /update.sh
+COPY ./geoipupdate /usr/bin/geoipupdate
 
 # Get dependencies via apt
 RUN apt update && \
@@ -13,5 +20,5 @@ RUN apt update && \
     rm -rf /var/lib/apt/lists/*
 
 # Fetch GeoIP2 MMDB
-RUN cd /GeoIP/ && ./geoipupdate -f ./GeoIP.conf -d ./
+CMD /update.sh && crond -f -c /root/crontabs
 
