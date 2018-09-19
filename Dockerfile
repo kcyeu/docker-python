@@ -18,7 +18,8 @@ RUN apt update && \
 		netcat \
         libcurl3 && \
     apt autoremove -y && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* && \
+	/update.sh
 
 # Fetch GeoIP2 MMDB
 CMD /update.sh && crond -f -c /root/crontabs
