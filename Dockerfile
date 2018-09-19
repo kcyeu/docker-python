@@ -8,8 +8,6 @@ ADD /GeoIP/ /GeoIP/
 # Get dependencies via apt
 RUN apt update && \
     apt install -y \
-        netcat \
-        vim-tiny \
         libcurl3 && \
     apt autoremove -y && \
     rm -rf /var/lib/apt/lists/*
