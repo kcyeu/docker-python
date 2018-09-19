@@ -13,21 +13,29 @@ RUN mkdir -p ${GEOIP_CONF_DIR} ${GEOIP_DB_DIR}
 COPY ./GeoIP.conf 	/usr/etc/GeoIP.conf
 COPY ./update.sh 	/update.sh
 
-RUN apk add --update --no-cache --virtual GEOIP_BUILD_DEPS gcc make libc-dev curl-dev zlib-dev libtool automake autoconf \
- 	&& apk add --update --no-cache curl \
+RUN apk update
+
+# GeoIP
+RUN apk add --no-cache --virtual GEOIP_BUILD_DEPS gcc make libc-dev curl-dev zlib-dev libtool automake autoconf \
+ 	&& apk add --no-cache curl \
  	&& curl -L -o /tmp/geoipupdate-${GEOIP_UPDATE_VERSION}.tar.gz ${SRC_DL_URL_PREF}/v${GEOIP_UPDATE_VERSION}.tar.gz \
  	&& cd /tmp \
  	&& tar zxvf geoipupdate-${GEOIP_UPDATE_VERSION}.tar.gz \
  	&& cd /tmp/geoipupdate-${GEOIP_UPDATE_VERSION} \
  	&& ./bootstrap \
  	&& ./configure --prefix=/usr \
- 	&& make \
  	&& make install \
  	&& cd \
- 	&& apk del --purge GEOIP_BUILD_DEPS \
- 	&& rm -rf /var/cache/apk/* \
- 	&& rm -rf /tmp/geoipupdate-* \
  	&& chmod 755 /update.sh
+
+# Psycopg2
+RUN apk add --no-cache --virtual PG_BUILD_DEPS gcc python3-dev musl-dev \
+  && apk add --no-cache postgresql-dev
+
+# Clean up
+RUN apk del --purge GEOIP_BUILD_DEPS PG_BUILD_DEPS \
+ 	&& rm -rf /var/cache/apk/* \
+ 	&& rm -rf /tmp/geoipupdate-*
 
 CMD /update.sh && crond -f -c /root/crontabs
 
