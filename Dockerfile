@@ -15,6 +15,7 @@ COPY ./geoipupdate /usr/bin/geoipupdate
 # Get dependencies via apt
 RUN apt update && \
     apt install -y \
+		netcat \
         libcurl3 && \
     apt autoremove -y && \
     rm -rf /var/lib/apt/lists/*
