@@ -13,8 +13,8 @@ RUN mkdir -p ${GEOIP_CONF_DIR} ${GEOIP_DB_DIR}
 COPY ./GeoIP.conf 	/usr/etc/GeoIP.conf
 COPY ./update.sh 	/update.sh
 
-RUN BUILD_DEPS='gcc make libc-dev curl-dev zlib-dev libtool automake autoconf' \
- 	&& apk add --update --no-cache curl ${BUILD_DEPS} \
+RUN apk add --update --no-cache --virtual GEOIP_BUILD_DEPS gcc make libc-dev curl-dev zlib-dev libtool automake autoconf \
+ 	&& apk add --update --no-cache curl \
  	&& curl -L -o /tmp/geoipupdate-${GEOIP_UPDATE_VERSION}.tar.gz ${SRC_DL_URL_PREF}/v${GEOIP_UPDATE_VERSION}.tar.gz \
  	&& cd /tmp \
  	&& tar zxvf geoipupdate-${GEOIP_UPDATE_VERSION}.tar.gz \
@@ -24,7 +24,7 @@ RUN BUILD_DEPS='gcc make libc-dev curl-dev zlib-dev libtool automake autoconf' \
  	&& make \
  	&& make install \
  	&& cd \
- 	&& apk del --purge ${BUILD_DEPS} \
+ 	&& apk del --purge GEOIP_BUILD_DEPS \
  	&& rm -rf /var/cache/apk/* \
  	&& rm -rf /tmp/geoipupdate-* \
  	&& chmod 755 /update.sh
