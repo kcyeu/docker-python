@@ -1,4 +1,4 @@
-FROM python:3.7-slim-stretch
+FROM python:3.6-slim-stretch
 MAINTAINER Gordon Yeu <kcyeu@mikuru.tw>
 
 ENV PYTHONUNBUFFERED 1
