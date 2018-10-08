@@ -9,7 +9,7 @@ ENV GEOIP_DB_DIR          /usr/share/GeoIP
 
 RUN mkdir -p ${GEOIP_CONF_DIR} ${GEOIP_DB_DIR}
 COPY ./GeoIP.conf  /usr/etc/GeoIP.conf
-COPY ./update.sh   /update.sh
+COPY ./update_geoip.sh   /update_geoip.sh
 COPY ./geoipupdate /usr/bin/geoipupdate
 
 # Get dependencies via apt
@@ -19,8 +19,8 @@ RUN apt update && \
         libcurl3 && \
     apt autoremove -y && \
     rm -rf /var/lib/apt/lists/* && \
-	/update.sh
+	/update_geoip.sh
 
 # Fetch GeoIP2 MMDB
-CMD /update.sh && crond -f -c /root/crontabs
+CMD /update_geoip.sh && crond -f -c /root/crontabs
 

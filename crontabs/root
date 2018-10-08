@@ -1,1 +1,1 @@
-42 20 * * * /update.sh
+42 20 * * * /update_geoip.sh
