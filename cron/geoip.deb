@@ -1,0 +1,1 @@
+42 20 * * * root /update_geoip.sh
