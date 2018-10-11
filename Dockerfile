@@ -1,4 +1,4 @@
-FROM python:3.7-alpine
+FROM python:3.6-alpine
 MAINTAINER Gordon Yeu <kcyeu@mikuru.tw>
 
 ENV PYTHONUNBUFFERED 1
