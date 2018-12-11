@@ -17,9 +17,12 @@ COPY ./cron/geoip.deb	/etc/cron.d/geoip
 # Get dependencies via apt
 RUN apt update && \
     apt install -y \
+		gosu \
 		netcat \
         libcurl3 \
-		cron && \
+		cron \
+		gcc \
+		autoconf && \
     apt autoremove -y && \
     rm -rf /var/lib/apt/lists/* && \
 	/update_geoip.sh
