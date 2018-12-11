@@ -23,6 +23,7 @@ RUN apt update && \
 		cron \
 		gcc \
 		autoconf && \
+	gosu nobody true && \
     apt autoremove -y && \
     rm -rf /var/lib/apt/lists/* && \
 	/update_geoip.sh
