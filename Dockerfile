@@ -20,9 +20,7 @@ RUN apt update && \
 		gosu \
 		netcat \
         libcurl3 \
-		cron \
-		gcc \
-		autoconf && \
+		cron && \
 	gosu nobody true && \
     apt autoremove -y && \
     rm -rf /var/lib/apt/lists/* && \
