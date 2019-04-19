@@ -9,10 +9,10 @@ ENV GEOIP_DB_DIR          /usr/share/GeoIP
 
 RUN mkdir -p ${GEOIP_CONF_DIR} ${GEOIP_DB_DIR} /etc/cron.d
 
-COPY ./GeoIP.conf  		/usr/etc/GeoIP.conf
-COPY ./update_geoip.sh  /update_geoip.sh
-COPY ./geoipupdate 		/usr/bin/geoipupdate
-COPY ./cron/geoip.deb	/etc/cron.d/geoip
+COPY ./GeoIP.conf  			/usr/etc/GeoIP.conf
+COPY ./update_geoip.sh  	/update_geoip.sh
+COPY ./geoipupdate 			/usr/bin/geoipupdate
+COPY ./cron/geoip.debian	/etc/cron.d/geoip
 
 # Get dependencies via apt
 RUN apt update && \
